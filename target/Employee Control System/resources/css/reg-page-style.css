@@ -1,0 +1,56 @@
+h1{
+    color: black;
+    text-align: center;
+    size: 30px;
+    letter-spacing: 8px;
+}
+p{
+    font-size: 25px;
+    color: cornflowerblue;
+    letter-spacing: 5px;
+}
+.register{
+    background-color: aquamarine;
+    border-width: 5px;
+    border-color: aquamarine;
+    border-style: solid;
+    height: 1700px;
+    width: 800px;
+    text-align: center;
+    margin:auto;
+    border-radius: 8px;
+    
+}
+input {
+    width: 90%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    font-size: large;
+    font-weight: bold;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+button{
+    border: 1px blue;
+    background-color: burlywood;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 15px 30px;
+    border-radius: 8px;
+}
+body{
+    background-color:rgb(148, 230, 202);
+}
+button:active{
+    background-color: red;
+    color: aquamarine;
+}
+button:hover{
+    font-size: 16px;
+}
+
+p.exception{
+    font-size: 20px;
+    color: rgb(221, 24, 33);
+}
+

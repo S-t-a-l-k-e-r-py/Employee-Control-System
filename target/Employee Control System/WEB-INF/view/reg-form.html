@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration page</title>
+    <link th:href="@{/resources/css/reg-page-style.css}" rel="stylesheet">
+</head>
+
+<body>
+<h1 class="title">Registration page</h1>
+
+<section class="register">
+    <form th:action="@{/reg/postRegistration}" th:object="${emp}" method="post">
+
+        <p>Create New User</p>
+        <div>
+            <input type="text" th:field="*{firstName}" placeholder="first name" id="fn">
+            <p th:if="${#fields.hasErrors('firstName')}" class="exception" th:errors="*{firstName}"></p>
+
+        </div>
+        <br>
+
+        <div>
+            <input type="text" th:field="*{lastName}" placeholder="last name">
+            <p th:if="${#fields.hasErrors('lastName')}" class="exception" th:errors="*{lastName}"></p>
+
+        </div>
+        <br>
+
+        <div>
+            <input type="text" th:field="*{userName}" placeholder="username">
+            <p th:if="${#fields.hasErrors('userName')}" class="exception" th:errors="*{userName}"></p>
+            <p th:if="${registrationError == 'error'}" class="exception">User with this name already exists</p>
+        </div>
+        <br>
+
+        <div>
+            <input type="password" th:field="*{password}" placeholder="password">
+            <p th:if="${#fields.hasErrors('password')}" class="exception" th:errors="*{password}"></p>
+        </div>
+        <br>
+
+        <div>
+            <input type="password" th:field="*{tempPassword}" placeholder="confirm password">
+        </div>
+        <br>
+        <div>
+            <input type="email" th:field="*{email}" placeholder="email">
+            <p th:if="${#fields.hasErrors('email')}" class="exception" th:errors="*{email}"></p>
+        </div>
+        <br>
+        <div>
+            <input type="text" th:field="*{age}" placeholder="age">
+            <p th:if="${#fields.hasErrors('age')}" class="exception" th:errors="*{age}"></p>
+        </div>
+        <br>
+        <div class="create">
+            <button>Create</button>
+        </div>
+        <br>
+    </form>
+
+    <form th:action="@{/login}" method="get">
+        <button>To main page</button>
+    </form>
+</section>
+
+
+<br>
+
+
+</body>
+
+</html>
