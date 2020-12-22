@@ -6,12 +6,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface EmployeeService  extends UserDetailsService {
+public interface EmployeeService extends UserDetailsService {
+    List<EmployeeTask> getTasksByEmployeeId(int id);
+
     List<Employee> getAll();
-    void save(Employee employee);
-    void update(Employee employee);
+
     Employee getByUserName(String name);
+
     Employee getById(int id);
+
+    void save(Employee employee);
+
+    void update(Employee employee);
+
     void deleteById(int id);
+
     void addTask(EmployeeTask task, int employeeId);
 }

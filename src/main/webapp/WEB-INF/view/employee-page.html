@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee work page</title>
+    <link th:href="@{/resources/css/user-page-style.css}" rel="stylesheet">
+</head>
+
+<body>
+<h1 class="ttl">Tasks</h1>
+<section class="tbl">
+
+    <p>First Name: <a th:text="${emp.firstName}"></a></p>
+    <p>Last Name: <a th:text="${emp.lastName}"></a></p>
+    <p class="tasks" th:if="${emp.getTasks().size()==0}">You haven't got any tasks</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Task</th>
+            <th>Completed</th>
+            <th>Failed</th>
+            <th>Time left</th>
+            <th>See more</th>
+        </tr>
+        <thead>
+        <tbody>
+        <tr th:each="task : ${emp.getTasks()}">
+            <td th:text="${task.title}"></td>
+            <td th:text="${task.isComplete}"></td>
+            <td th:text="${task.isFailed}"></td>
+            <td th:text="${task.timeLimitation}"></td>
+            <td>
+                <form action="/" method="get">
+                    <button class="btn">See more</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button class="away">Turn away</button>
+</section>
+
+
+</body>
+
+</html>

@@ -63,7 +63,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
-
     @Override
     @Transactional
     public void deleteById(int id) {
@@ -84,6 +83,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee getByUserName(String name) {
         return repository.getByUserName(name);
     }
+
+    @Override
+    @Transactional
+    public List<EmployeeTask> getTasksByEmployeeId(int id) {
+        return repository.getTasksByEmployeeId(id);
+    }
+
 
     @Override
     @Transactional

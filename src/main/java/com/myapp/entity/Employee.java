@@ -21,27 +21,26 @@ public class Employee {
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToOne(cascade =CascadeType.ALL)
-    @JoinColumn(name="account_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
     private EmployeeAccount account;
 
-    @OneToOne(cascade =CascadeType.ALL)
-    @JoinColumn(name="data_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "data_id")
     private EmployeeData data;
 
     @Column(name = "role")
     private String role;
 
-    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-    @JoinColumn(name="employee_id")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id")
     private List<EmployeeTask> tasks;
-
 
 
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName,String userName) {
+    public Employee(String firstName, String lastName, String userName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -92,7 +91,6 @@ public class Employee {
     }
 
     public void setData(EmployeeData data) {
-        System.out.println(data);
         this.data = data;
     }
 
@@ -111,6 +109,7 @@ public class Employee {
     public void setTasks(List<EmployeeTask> tasks) {
         this.tasks = tasks;
     }
+
     public void addTask(EmployeeTask task) {
 
         if (tasks == null) {

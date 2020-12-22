@@ -16,10 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final EmployeeService service;
+    private final AuthenticationHandler authenticationHandler;
 
     @Autowired
-    public SecurityConfig(EmployeeService service) {
+    public SecurityConfig(EmployeeService service, AuthenticationHandler handler) {
         this.service = service;
+        this.authenticationHandler = handler;
     }
 
     @Override
@@ -39,13 +41,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/authenticateUser")
-//                .successHandler(customAuthenticationSuccessHandler)
+                .successHandler(authenticationHandler)
                 .permitAll()
                 .and()
                 .logout().permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/access-denied");
-
     }
 
 
@@ -58,8 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(service); //set the custom user details service
-        auth.setPasswordEncoder(passwordEncoder()); //set the password encoder - bcrypt
+        auth.setUserDetailsService(service);
+        auth.setPasswordEncoder(passwordEncoder());
         return auth;
     }
 

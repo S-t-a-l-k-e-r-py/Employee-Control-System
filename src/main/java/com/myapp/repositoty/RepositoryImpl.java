@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 @Repository
@@ -43,13 +44,25 @@ public class RepositoryImpl implements EmployeeRepository {
         Session session = sessionFactory.getCurrentSession();
         Query<Employee> query =
                 session.createQuery("SELECT emp FROM Employee emp  WHERE emp.userName=:name", Employee.class);
-        query.setParameter("name",name);
+        query.setParameter("name", name);
         try {
             return query.getSingleResult();
         } catch (Exception e) {
             return null;
         }
+    }
 
+    @Override
+    public List<EmployeeTask> getTasksByEmployeeId(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<EmployeeTask> query =
+                session.createQuery("SELECT task FROM EmployeeTask task  WHERE task.id=:id", EmployeeTask.class);
+        query.setParameter("id", id);
+        try {
+            return query.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override

@@ -34,7 +34,7 @@ public class RegistrationController {
     @GetMapping("/getRegistration")
     public String showMyLoginPage(Model model) {
         model.addAttribute("emp", new TempEmployee());
-        return "reg-form";
+        return "reg-page";
     }
 
     @PostMapping("/postRegistration")
@@ -45,22 +45,23 @@ public class RegistrationController {
         System.out.println(employee);
         String userName = employee.getUserName();
         if (theBindingResult.hasErrors()) {
-            return "reg-form";
+            return "reg-page";
         }
         Employee temp = service.getByUserName(userName);
         if (temp != null) {
             theModel.addAttribute("emp", employee);
-            theModel.addAttribute("registrationError","error");
-            return "reg-form";
+            theModel.addAttribute("registrationError", "error");
+            return "reg-page";
         }
         service.save(createEmployeeToSave(employee));
         return "reg-success";
     }
 
     private Employee createEmployeeToSave(TempEmployee tempEmployee) {
+
         Employee employee = new Employee(
-                tempEmployee.getFirstName(),
-                tempEmployee.getLastName(),
+                tempEmployee.getFirstName().substring(0, 1).toUpperCase() + tempEmployee.getFirstName().substring(1).toLowerCase(),
+                tempEmployee.getLastName().substring(0, 1).toUpperCase() + tempEmployee.getLastName().substring(1).toLowerCase(),
                 tempEmployee.getUserName());
 
         EmployeeAccount account =
