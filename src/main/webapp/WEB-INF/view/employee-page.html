@@ -26,20 +26,24 @@
         </tr>
         <thead>
         <tbody>
-        <tr th:each="task : ${emp.getTasks()}">
+        <tr th:each="task : ${emp.getTasks()}" th:value="${emp.id}">
             <td th:text="${task.title}"></td>
-            <td th:text="${task.isComplete}"></td>
-            <td th:text="${task.isFailed}"></td>
+            <td th:text="${task.title}"></td>
+            <td th:text="${task.id}"></td>
             <td th:text="${task.timeLimitation}"></td>
             <td>
-                <form action="/" method="get">
+                <form th:action="@{'/employee/task/' + ${task.id}}" th:object="${emp}" method="get">
+                    <input type="hidden" th:field="${emp.id}"/>
                     <button class="btn">See more</button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
-    <button class="away">Turn away</button>
+    <form th:action="@{/logout}" method="post">
+        <button class="away">Log Out</button>
+    </form>
+
 </section>
 
 

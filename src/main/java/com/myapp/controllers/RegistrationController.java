@@ -47,13 +47,13 @@ public class RegistrationController {
         if (theBindingResult.hasErrors()) {
             return "reg-page";
         }
-        Employee temp = service.getByUserName(userName);
+        Employee temp = service.getEmployeeByUserName(userName);
         if (temp != null) {
             theModel.addAttribute("emp", employee);
             theModel.addAttribute("registrationError", "error");
             return "reg-page";
         }
-        service.save(createEmployeeToSave(employee));
+        service.saveEmployee(createEmployeeToSave(employee));
         return "reg-success";
     }
 

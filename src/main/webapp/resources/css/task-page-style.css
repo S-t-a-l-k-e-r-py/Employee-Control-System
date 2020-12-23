@@ -1,0 +1,51 @@
+p{
+    color: blue;
+    font-size: 25px;
+    letter-spacing: 8px;
+}
+section{
+    background-color: aquamarine;
+    border-width: 5px;
+    border-color: aquamarine;
+    border-style: solid;
+    height: auto;
+    width: 1000px;
+    margin:auto;
+    border-radius: 8px;
+}
+body{
+    background-color:rgb(148, 230, 202);
+}
+div{
+    margin-left: 30px;
+    font-size: 20px;
+}
+button{
+    display: inline-block;
+    border: 1px blue;
+    background-color: burlywood;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 15px 30px;
+    border-radius: 8px;
+}
+form{
+    display: inline-block;
+}
+.complete{
+    margin-left: 690px;
+}
+.actions{
+    width: 990px;
+    display: inline-block;
+    text-align: center;
+}
+
+button:active{
+    background-color: red;
+    color: aquamarine;
+}
+button:hover{
+    font-size: 16px;
+}
+

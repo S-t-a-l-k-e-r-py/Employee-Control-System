@@ -1,7 +1,6 @@
-package com.myapp.repositoty;
+package com.myapp.repositoty.EmployeeRepo;
 
 import com.myapp.entity.Employee;
-import com.myapp.entity.EmployeeTask;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -21,26 +20,25 @@ public class RepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public List<Employee> getAll() {
+    public List<Employee> getAllEmployees() {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("SELECT emp FROM Employee emp", Employee.class).getResultList();
     }
 
     @Override
-    public void save(Employee employee) {
+    public void saveEmployee(Employee employee) {
         Session session = sessionFactory.getCurrentSession();
-        System.out.println(employee);
         session.save(employee);
     }
 
     @Override
-    public void update(Employee employee) {
+    public void updateEmployee(Employee employee) {
         Session session = sessionFactory.getCurrentSession();
         session.update(employee);
     }
 
     @Override
-    public Employee getByUserName(String name) {
+    public Employee getEmployeeByUserName(String name) {
         Session session = sessionFactory.getCurrentSession();
         Query<Employee> query =
                 session.createQuery("SELECT emp FROM Employee emp  WHERE emp.userName=:name", Employee.class);
@@ -53,36 +51,17 @@ public class RepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public List<EmployeeTask> getTasksByEmployeeId(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        Query<EmployeeTask> query =
-                session.createQuery("SELECT task FROM EmployeeTask task  WHERE task.id=:id", EmployeeTask.class);
-        query.setParameter("id", id);
-        try {
-            return query.getResultList();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    @Override
-    public Employee getById(int id) {
+    public Employee getEmployeeById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Employee.class, id);
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteEmployeeById(int id) {
         Session session = sessionFactory.getCurrentSession();
         Employee employee = session.get(Employee.class, id);
         session.delete(employee);
     }
 
-    @Override
-    public void addTask(EmployeeTask task, int employeeId) {
-        Session session = sessionFactory.getCurrentSession();
-        Employee employee = session.get(Employee.class, employeeId);
-        employee.addTask(task);
-        session.saveOrUpdate(employee);
-    }
+
 }

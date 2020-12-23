@@ -3,7 +3,8 @@ package com.myapp.service;
 import com.myapp.entity.Employee;
 import com.myapp.entity.EmployeeAccount;
 import com.myapp.entity.EmployeeTask;
-import com.myapp.repositoty.EmployeeRepository;
+import com.myapp.repositoty.EmployeeRepo.EmployeeRepository;
+import com.myapp.repositoty.TaskRepo.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -19,44 +20,34 @@ import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final EmployeeRepository repository;
+
+    private final EmployeeRepository employeeRepository;
+    private final TaskRepository taskRepository;
     private final BCryptPasswordEncoder encoder;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository repository) {
-        this.repository = repository;
+    public EmployeeServiceImpl(EmployeeRepository repository, TaskRepository taskRepository) {
+        this.employeeRepository = repository;
+        this.taskRepository = taskRepository;
         encoder = new BCryptPasswordEncoder();
     }
 
     @Override
     @Transactional
-    public List<Employee> getAll() {
-        return null;
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.getAllEmployees();
     }
 
     @Override
     @Transactional
-    public void save(Employee employee) {
-        String password = employee.getAccount().getPassword();
-        String email = employee.getAccount().getEmail();
-        int id = employee.getAccount().getId();
-        EmployeeAccount account = new EmployeeAccount(email, encoder.encode(password));
-        account.setId(id);
-        employee.setAccount(account);
-        repository.save(employee);
+    public Employee getEmployeeByUserName(String name) {
+        return employeeRepository.getEmployeeByUserName(name);
     }
 
     @Override
     @Transactional
-    public void update(Employee employee) {
-        repository.update(employee);
-    }
-
-
-    @Override
-    @Transactional
-    public Employee getById(int id) {
-        Employee employee = repository.getById(id);
+    public Employee getEmployeeById(int id) {
+        Employee employee = employeeRepository.getEmployeeById(id);
         if (employee == null) {
             throw new RuntimeException();
         }
@@ -65,36 +56,67 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public void deleteById(int id) {
-        Employee employee = repository.getById(id);
+    public void deleteEmployeeById(int id) {
+        Employee employee = employeeRepository.getEmployeeById(id);
         if (employee != null) {
             throw new RuntimeException();
         }
-        repository.deleteById(id);
+        employeeRepository.deleteEmployeeById(id);
+    }
+
+    @Override
+    @Transactional
+    public void saveEmployee(Employee employee) {
+        String password = employee.getAccount().getPassword();
+        String email = employee.getAccount().getEmail();
+        int id = employee.getAccount().getId();
+        EmployeeAccount account = new EmployeeAccount(email, encoder.encode(password));
+        account.setId(id);
+        employee.setAccount(account);
+        employeeRepository.saveEmployee(employee);
+    }
+
+    @Override
+    @Transactional
+    public void updateEmployee(Employee employee) {
+        employeeRepository.updateEmployee(employee);
+    }
+
+    // taskRepository methods
+
+    @Override
+    @Transactional
+    public List<EmployeeTask> getTasksByEmployeeId(int id) {
+        return taskRepository.getTasksByEmployeeId(id);
+    }
+
+    @Override
+    @Transactional
+    public EmployeeTask getTaskById(int id) {
+        EmployeeTask task = taskRepository.getTaskById(id);
+        if (task == null) {
+            throw new RuntimeException();
+        }
+        return task;
     }
 
     @Override
     @Transactional
     public void addTask(EmployeeTask task, int employeeId) {
+        taskRepository.addTask(task, employeeId);
     }
 
     @Override
     @Transactional
-    public Employee getByUserName(String name) {
-        return repository.getByUserName(name);
-    }
-
-    @Override
-    @Transactional
-    public List<EmployeeTask> getTasksByEmployeeId(int id) {
-        return repository.getTasksByEmployeeId(id);
+    public void updateTask(EmployeeTask task) {
+        taskRepository.updateTask(task);
     }
 
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Employee employee = repository.getByUserName(username);
+        Employee employee = employeeRepository.getEmployeeByUserName(username);
         if (employee == null) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }

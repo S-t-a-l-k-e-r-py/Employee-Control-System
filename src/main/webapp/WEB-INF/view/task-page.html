@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task page</title>
+    <link th:href="@{/resources/css/task-page-style.css}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<section>
+    <p>Task: <a th:text="${task.title}"></a></p>
+    <div th:text="${task.task}">
+    </div>
+
+    <section class="actions">
+        <form th:action="@{'/employee/main'}" method="get" class="back">
+            <button>Go back</button>
+        </form>
+        <form th:action="@{'/employee/complete/' + ${task.id}}" method="post" class="complete">
+            <button>Complete task</button>
+        </form>
+    </section>
+
+</section>
+
+
+</body>
+
+</html>
