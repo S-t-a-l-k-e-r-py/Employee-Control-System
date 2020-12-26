@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager work page</title>
+    <link th:href="@{/resources/css/admin-styles/admin-page-style.css}" rel="stylesheet">
+</head>
+
+<body>
+<section class="tbl">
+    <p id="ttl">Role in office: Admin</p>
+    <p>First Name: <a th:text="${admin.firstName}" style="color: brown;"></a></p>
+    <p>Last Name: <a th:text="${admin.lastName}" style="color: brown;"></a></p>
+    <h1 style="color: darkblue">Employees:</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Role</th>
+            <th>Salary</th>
+            <th>Age</th>
+            <th>Info</th>
+        </tr>
+        <thead>
+        <tbody>
+        <tr th:each="employee : ${employees}" th:if="${!employee.userName.equals(admin.userName)}">
+            <td th:text="${employee.firstName}"></td>
+            <td th:text="${employee.lastName}"></td>
+            <td th:text="${employee.role}">false</td>
+            <td th:text="${employee.getData().getSalary()}"></td>
+            <td th:text="${employee.getData().getAge()}"></td>
+            <td>
+                <form th:action="@{'/admin/employee-detail/' + ${employee.id}}" method="get">
+                    <button class="btn">See more</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/logout}" method="post">
+        <button class="away">Log Out</button>
+    </form>
+</section>
+
+
+</body>
+
+</html>

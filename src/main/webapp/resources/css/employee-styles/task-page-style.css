@@ -22,7 +22,7 @@ div{
 }
 button{
     display: inline-block;
-    border: 1px blue;
+    border: 1px;
     background-color: burlywood;
     font-weight: bold;
     font-size: 15px;

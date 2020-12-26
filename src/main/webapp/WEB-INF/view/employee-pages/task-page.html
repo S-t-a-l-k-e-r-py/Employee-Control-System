@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task page</title>
-    <link th:href="@{/resources/css/task-page-style.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/employee-styles/task-page-style.css}" rel="stylesheet">
 
 </head>
 
@@ -17,7 +17,8 @@
     </div>
 
     <section class="actions">
-        <form th:action="@{'/employee/main'}" method="get" class="back">
+        <br>
+        <form th:action="@{/employee/main}" method="get" class="back">
             <button>Go back</button>
         </form>
         <form th:action="@{'/employee/complete/' + ${task.id}}" method="post" class="complete">

@@ -44,7 +44,7 @@ public class TaskRepositoryImpl implements TaskRepository {
     public List<EmployeeTask> getTasksByEmployeeId(int id) {
         Session session = sessionFactory.getCurrentSession();
         Query<EmployeeTask> query =
-                session.createQuery("SELECT task FROM EmployeeTask task  WHERE task.id=:id", EmployeeTask.class);
+                session.createQuery("SELECT task FROM EmployeeTask task  WHERE task.empId=:id", EmployeeTask.class);
         query.setParameter("id", id);
         try {
             return query.getResultList();

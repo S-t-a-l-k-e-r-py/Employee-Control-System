@@ -1,0 +1,84 @@
+section{
+    background-color: aquamarine;
+    border-width: 5px;
+    border-color: aquamarine;
+    border-style: solid;
+    height: auto;
+    width: 1000px;
+    margin:auto;
+    border-radius: 8px;
+}
+h1{
+    text-align: center;
+    color: blueviolet;
+    size: 25px;
+    letter-spacing: 8px;
+}
+p{
+    font-size: 25px;
+    color: cornflowerblue;
+    letter-spacing: 5px;
+}
+input[type=text] {
+    width: 90%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    font-size: 25px;
+    font-weight: bold;
+    box-sizing: border-box;
+    border-radius: 8px;
+    margin-left: 50px;
+}
+
+body{
+    background-color:rgb(148, 230, 202);
+}
+button{
+    border:1px;
+    background-color: burlywood;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 15px 30px;
+    border-radius: 8px;
+    margin: auto;
+}
+button:active{
+    background-color: red;
+    color: aquamarine;
+}
+button:hover{
+    font-size: 16px;
+}
+
+textarea {
+    margin:auto;
+    display: flex;
+    vertical-align: top;
+    resize: none;
+    height: 150px;
+    width: 900px;
+    font-size: 18px;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+.actions{
+    width: 990px;
+    text-align: center;
+}
+#btn1{
+    margin: 0 auto;
+    display: block;
+}
+
+form{
+    display: inline-block;
+}
+.btn1{
+    margin-left: 200px;
+}
+.btn2{
+    margin-left: 200px;
+}
+
+
+

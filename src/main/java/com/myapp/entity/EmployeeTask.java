@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class EmployeeTask {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private int id;
     @Column(name = "title")
     private String title;
@@ -15,6 +15,8 @@ public class EmployeeTask {
     private String task;
     @Column(name = "time")
     private String timeLimitation;
+    @Column(name = "emp_id")
+    private int empId;
     @Column(name = "iscomplete")
     private boolean isComplete;
     @Column(name = "isfailed")
@@ -22,7 +24,7 @@ public class EmployeeTask {
 
 
     public EmployeeTask() {
-        checkToComplete();
+        checkTask();
     }
 
     public EmployeeTask(String taskTitle, String task, String timeLimitation) {
@@ -78,10 +80,16 @@ public class EmployeeTask {
     public void setFailed(boolean failed) {
         isFailed = failed;
     }
-    private void checkToComplete(){
-//        if(!isComplete){
-//            isComplete = false?
-//        }
+
+    public int getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(int empId) {
+        this.empId = empId;
+    }
+
+    private void checkTask() {
     }
 
     @Override

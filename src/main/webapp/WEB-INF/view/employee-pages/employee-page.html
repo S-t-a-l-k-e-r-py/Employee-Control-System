@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee work page</title>
-    <link th:href="@{/resources/css/user-page-style.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/employee-styles/employee-page-style.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -26,14 +26,19 @@
         </tr>
         <thead>
         <tbody>
-        <tr th:each="task : ${emp.getTasks()}" th:value="${emp.id}">
+        <tr th:each="task : ${emp.getTasks()}">
             <td th:text="${task.title}"></td>
-            <td th:text="${task.title}"></td>
-            <td th:text="${task.id}"></td>
+            <td>
+                <span th:if="${task.isComplete()==true}" style="color:green">&#10003</span>
+                <span th:unless="${task.isComplete()==true}">&#8722;</span>
+            </td>
+            <td>
+                <span th:if="${task.isFailed()==true}" style="color:green">&#10003</span>
+                <span th:unless="${task.isFailed()==true}">&#8722;</span>
+            </td>
             <td th:text="${task.timeLimitation}"></td>
             <td>
-                <form th:action="@{'/employee/task/' + ${task.id}}" th:object="${emp}" method="get">
-                    <input type="hidden" th:field="${emp.id}"/>
+                <form th:action="@{'/employee/task/' + ${task.id}}" method="get">
                     <button class="btn">See more</button>
                 </form>
             </td>

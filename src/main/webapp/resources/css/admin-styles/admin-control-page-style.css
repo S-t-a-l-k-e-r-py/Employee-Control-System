@@ -1,0 +1,103 @@
+h1{
+    color: black;
+    text-align: center;
+    size: 25px;
+    letter-spacing: 8px;
+}
+
+table{
+    margin: auto;
+    border-collapse: collapse;
+    overflow:hidden;
+    width:1000px;
+    position:relative;
+    border-radius: 4px;
+}
+
+td,th{
+    border: 2px solid burlywood;
+}
+
+thead tr{
+    height:60px;
+    background:#FFED86;
+    font-size: 20px;
+    color: cornflowerblue;
+}
+
+tbody tr{
+    text-align: center;
+    height:50px;
+    background-color: aquamarine;
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+
+button{
+    border:1px;
+    border-color: blue;
+    background-color: burlywood;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 8px 10px;
+    border-radius: 4px;
+}
+
+
+button:active{
+    background-color: red;
+    color: aquamarine;
+}
+.btn, button:hover{
+    font-size: 16px;
+}
+
+p{
+    font-size: 25px;
+    color: cornflowerblue;
+    letter-spacing: 5px;
+}
+
+body{
+    background-color:rgb(148, 230, 202);
+}
+
+section{
+    background-color: aquamarine;
+    border-width: 5px;
+    border-color: aquamarine;
+    border-style: solid;
+    height: auto;
+    width: 1000px;
+    margin:auto;
+    border-radius: 8px;
+}
+div{
+    font-size: 35px;
+    color: rebeccapurple;
+    letter-spacing: 5px;
+    text-align: center;
+}
+.actions{
+    width: 990px;
+    text-align: center;
+}
+form{
+    display: inline-block;
+}
+
+.back{
+    margin-right: 690px;
+}
+#btn1, #btn2{
+    padding: 15px 30px;
+    border-radius: 8px;
+}
+
+
+
+
+
+

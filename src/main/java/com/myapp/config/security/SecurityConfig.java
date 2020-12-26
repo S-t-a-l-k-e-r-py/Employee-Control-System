@@ -34,7 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/employee/**").hasRole("EMPLOYEE")
-                .antMatchers("/manager/**").hasRole("MANAGER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/director/**").hasRole("DIRECTOR")
                 .and()
@@ -49,12 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedPage("/access-denied");
     }
 
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {

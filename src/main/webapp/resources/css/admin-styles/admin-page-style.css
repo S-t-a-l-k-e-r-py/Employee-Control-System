@@ -37,7 +37,7 @@ tbody tr{
   
 .away{
     margin-top: 50px;
-    border: 1px blue;
+    border:1px;
     background-color: burlywood;
     font-weight: bold;
     font-size: 15px;
@@ -46,7 +46,7 @@ tbody tr{
 }
 
 .btn{
-    border: 1px blue;
+    border:1px;
     background-color: burlywood;
     font-weight: bold;
     font-size: 15px;
@@ -61,10 +61,6 @@ button:active{
 }
 .btn, button:hover{
     font-size: 16px;
-}
-a{
-    font-size: 25px;
-    color: black;
 }
 
 p{
@@ -87,11 +83,8 @@ section{
     margin:auto;
     border-radius: 8px;
 }
-.tasks{
-    font-size: 30px;
+#ttl{
     text-align: center;
-    color: red;
-    letter-spacing: 5px;
 }
 
 

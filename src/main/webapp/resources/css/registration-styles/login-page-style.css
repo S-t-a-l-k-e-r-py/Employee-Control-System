@@ -31,7 +31,7 @@ input[type=text] {
     border-radius: 8px;
 }
 button{
-    border: 1px blue;
+    border: 1px;
     background-color: burlywood;
     font-weight: bold;
     font-size: 15px;

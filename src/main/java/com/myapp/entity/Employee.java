@@ -111,7 +111,6 @@ public class Employee {
     }
 
     public void addTask(EmployeeTask task) {
-
         if (tasks == null) {
             tasks = new ArrayList<>();
         }

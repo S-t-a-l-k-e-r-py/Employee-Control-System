@@ -95,7 +95,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeTask getTaskById(int id) {
         EmployeeTask task = taskRepository.getTaskById(id);
         if (task == null) {
-            throw new RuntimeException();
+            throw new RuntimeException("Task not found");
         }
         return task;
     }

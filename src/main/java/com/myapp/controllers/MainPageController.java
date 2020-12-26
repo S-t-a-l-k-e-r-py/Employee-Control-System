@@ -1,5 +1,4 @@
 package com.myapp.controllers;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -9,8 +8,7 @@ public class MainPageController {
 
     @GetMapping("/")
     public String getRegistration() {
-        return "redirect:/employee/";
+        return "redirect:/login";
     }
-
 
 }
