@@ -35,7 +35,7 @@
                 <span th:unless="${task.isComplete()==true}">&#8722;</span>
             </td>
             <td>
-                <span th:if="${task.isFailed()==true}" style="color:green">&#10003</span>
+                <span th:if="${task.isFailed()==true}" style="color:red">&#10003</span>
                 <span th:unless="${task.isFailed()==true}">&#8722;</span>
             </td>
             <td th:text="${task.timeLimitation}"></td>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 
@@ -69,18 +70,25 @@ public class AdminController {
     @PostMapping("/employee-detail/save-task")
     public String saveTask(@ModelAttribute(name = "task") EmployeeTask task, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Employee admin = (Employee) session.getAttribute("admin");
-        if (task.getEmpId() == admin.getId()) {
-            return "access-denied";
+        if(task.getTimeLimitation().getTime()<new Date().getTime()){
+            return "redirect:/admin/main";
         }
-        System.out.println(task);
         Employee employee = (Employee) session.getAttribute("employee");
         task.setEmpId(employee.getId());
-        if (task.getEmpId() != 0) {
+        if (task.getId() != 0) {
             service.updateTask(task);
-        } else if (task.getTitle() != null) {
+        } else {
             service.addTask(task, employee.getId());
         }
+        return "redirect:/admin/main";
+    }
+
+    @PostMapping("/employee-detail/delete-task")
+    public String deleteTask(@ModelAttribute(name = "task") EmployeeTask task) {
+        if (task.getId() == 0) {
+            return "access-denied";
+        }
+        service.deleteTaskById(task.getId());
         return "redirect:/admin/main";
     }
 

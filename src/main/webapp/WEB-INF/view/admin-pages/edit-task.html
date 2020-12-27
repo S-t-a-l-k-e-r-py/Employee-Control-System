@@ -22,9 +22,10 @@
         <br>
 
         <label>
-            <p>Time limitation:<input type="text" th:field="*{timeLimitation}" id="time" /></p>
+            <p>Time limitation:<input type="date" th:field="*{timeLimitation}" id="time" /></p>
         </label>
         <br>
+
         <p>Task:</p>
         <label>
             <textarea id="msg" th:field="*{task}"></textarea>
@@ -34,8 +35,12 @@
             <form th:action="@{/admin/main}" method="get" class="back">
                 <button>Go back</button>
             </form>
-            <button class="btn1">Add task</button>
-            <form th:action="@{/admin/employee-detail/delete-task}" method="post" class="delete">
+            <button th:if="${task.getId() == 0}" class="btn1">Add task</button>
+            <button th:if="${task.getId() != 0}" class="btn1">Edit</button>
+            <form th:action="@{/admin/employee-detail/delete-task}" th:object="${task}" method="post" class="delete">
+                <label>
+                    <input type="hidden" th:field="*{id}">
+                </label>
                 <button class="btn1">Delete task</button>
             </form>
         </section>

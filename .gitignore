@@ -1,6 +1,5 @@
-/target/
-*/target/**
-**/META-INF/
+/**/target
+/**/META-INF/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###

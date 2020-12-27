@@ -2,6 +2,7 @@ package com.myapp.service;
 
 import com.myapp.entity.Employee;
 import com.myapp.entity.EmployeeTask;
+import org.hibernate.Session;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
@@ -27,4 +28,7 @@ public interface EmployeeService extends UserDetailsService {
     void addTask(EmployeeTask task, int employeeId);
 
     void updateTask(EmployeeTask task);
+
+    void deleteTaskById(int id);
+
 }

@@ -22,7 +22,7 @@
             <button>Go back</button>
         </form>
         <form th:action="@{'/employee/complete/' + ${task.id}}" method="post" class="complete">
-            <button>Complete task</button>
+            <button th:if="${task.isComplete()!=true && task.isFailed()!=true}">Complete task</button>
         </form>
     </section>
 

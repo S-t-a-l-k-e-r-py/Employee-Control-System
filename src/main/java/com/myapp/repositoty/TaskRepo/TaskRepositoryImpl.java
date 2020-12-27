@@ -33,6 +33,12 @@ public class TaskRepositoryImpl implements TaskRepository {
         Session session = sessionFactory.getCurrentSession();
         session.update(task);
     }
+    @Override
+    public void deleteTaskById(int id){
+        Session session = sessionFactory.getCurrentSession();
+        EmployeeTask task = session.get(EmployeeTask.class,id);
+        session.delete(task);
+    }
 
     @Override
     public EmployeeTask getTaskById(int id) {

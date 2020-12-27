@@ -1,6 +1,9 @@
 package com.myapp.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "employee_task")
@@ -14,7 +17,8 @@ public class EmployeeTask {
     @Column(name = "task")
     private String task;
     @Column(name = "time")
-    private String timeLimitation;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date timeLimitation;
     @Column(name = "emp_id")
     private int empId;
     @Column(name = "iscomplete")
@@ -27,7 +31,7 @@ public class EmployeeTask {
         checkTask();
     }
 
-    public EmployeeTask(String taskTitle, String task, String timeLimitation) {
+    public EmployeeTask(String taskTitle, String task, Date timeLimitation) {
         this.title = taskTitle;
         this.task = task;
         this.timeLimitation = timeLimitation;
@@ -57,11 +61,11 @@ public class EmployeeTask {
         this.task = task;
     }
 
-    public String getTimeLimitation() {
+    public Date getTimeLimitation() {
         return timeLimitation;
     }
 
-    public void setTimeLimitation(String timeLimitation) {
+    public void setTimeLimitation(Date timeLimitation) {
         this.timeLimitation = timeLimitation;
     }
 
@@ -90,6 +94,10 @@ public class EmployeeTask {
     }
 
     private void checkTask() {
+        if((!isComplete && !isFailed) && timeLimitation.getTime()<= new Date().getTime()){
+            this.isComplete = false;
+            this.isFailed = true;
+        }
     }
 
     @Override

@@ -112,6 +112,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         taskRepository.updateTask(task);
     }
 
+    @Override
+    @Transactional
+    public void deleteTaskById(int id){
+        taskRepository.deleteTaskById(id);
+    }
 
     @Override
     @Transactional
