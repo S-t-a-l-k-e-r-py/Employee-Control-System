@@ -27,7 +27,6 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler {
         String userName = authentication.getName();
         Employee user = service.getEmployeeByUserName(userName);
         HttpSession session = request.getSession();
-        System.out.println(user.getRole());
         switch (user.getRole()) {
             case "ROLE_EMPLOYEE":
                 session.setAttribute("employee", user);

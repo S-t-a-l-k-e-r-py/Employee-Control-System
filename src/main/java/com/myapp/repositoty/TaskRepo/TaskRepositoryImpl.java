@@ -8,6 +8,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -43,7 +44,9 @@ public class TaskRepositoryImpl implements TaskRepository {
     @Override
     public EmployeeTask getTaskById(int id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(EmployeeTask.class, id);
+        EmployeeTask task = session.get(EmployeeTask.class, id);
+        checkTask(task);
+        return task;
     }
 
     @Override
@@ -53,9 +56,17 @@ public class TaskRepositoryImpl implements TaskRepository {
                 session.createQuery("SELECT task FROM EmployeeTask task  WHERE task.empId=:id", EmployeeTask.class);
         query.setParameter("id", id);
         try {
+            query.getResultList().forEach(this::checkTask);
             return query.getResultList();
         } catch (Exception e) {
             return null;
+        }
+    }
+        private void checkTask(EmployeeTask task) {
+
+        if((!task.isComplete() && ! task.isFailed()) && task.getTimeLimitation().getTime()<= new Date().getTime()){
+            task.setComplete(false);
+            task.setFailed(true);
         }
     }
 }

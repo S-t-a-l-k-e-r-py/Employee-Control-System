@@ -28,7 +28,6 @@ public class EmployeeTask {
 
 
     public EmployeeTask() {
-        checkTask();
     }
 
     public EmployeeTask(String taskTitle, String task, Date timeLimitation) {
@@ -91,13 +90,6 @@ public class EmployeeTask {
 
     public void setEmpId(int empId) {
         this.empId = empId;
-    }
-
-    private void checkTask() {
-        if((!isComplete && !isFailed) && timeLimitation.getTime()<= new Date().getTime()){
-            this.isComplete = false;
-            this.isFailed = true;
-        }
     }
 
     @Override

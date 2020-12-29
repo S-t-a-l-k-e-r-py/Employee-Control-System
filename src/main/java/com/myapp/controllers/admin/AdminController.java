@@ -2,6 +2,7 @@ package com.myapp.controllers.admin;
 
 import com.myapp.entity.Employee;
 import com.myapp.entity.EmployeeTask;
+import com.myapp.exceptions.NotFoundException;
 import com.myapp.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,7 +41,7 @@ public class AdminController {
     @GetMapping("/employee-detail/{id}")
     public String getEmployee(@PathVariable(name = "id") int id, Model model, HttpServletRequest request) {
         if (checkLegalAccess(id, request)) {
-            return "access-denied";
+            throw new NotFoundException("employee not find");
         }
         Employee employee = service.getEmployeeById(id);
         HttpSession session = request.getSession();
@@ -55,7 +56,7 @@ public class AdminController {
     @GetMapping("/employee-detail/edit-task/{id}")
     public String editTask(@PathVariable(name = "id") int id, Model model, HttpServletRequest request) {
         if (checkLegalAccess(id, request)) {
-            return "access-denied";
+            throw new NotFoundException("task not find");
         }
         EmployeeTask task;
         if (id == 0) {
@@ -86,7 +87,7 @@ public class AdminController {
     @PostMapping("/employee-detail/delete-task")
     public String deleteTask(@ModelAttribute(name = "task") EmployeeTask task) {
         if (task.getId() == 0) {
-            return "access-denied";
+            throw new NotFoundException("task not find");
         }
         service.deleteTaskById(task.getId());
         return "redirect:/admin/main";

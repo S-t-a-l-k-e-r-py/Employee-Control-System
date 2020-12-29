@@ -2,6 +2,7 @@ package com.myapp.controllers.employee;
 
 import com.myapp.entity.Employee;
 import com.myapp.entity.EmployeeTask;
+import com.myapp.exceptions.NotFoundException;
 import com.myapp.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,9 +34,9 @@ public class EmployeeController {
     }
 
     @GetMapping("/task/{id}")
-    public String getTask(@PathVariable(name = "id") int id, Model model, HttpServletRequest request) {
+    public String getTask(@PathVariable(name = "id") int id, Model model, HttpServletRequest request){
         if (checkLegalAccess(id, request)) {
-            return "access-denied";
+            throw new NotFoundException("task not find");
         }
         EmployeeTask task = service.getTaskById(id);
         task.setTitle(task.getTitle().substring(0, 1).toUpperCase() + task.getTitle().substring(1));
@@ -43,10 +44,11 @@ public class EmployeeController {
         return "employee-pages/task-page";
     }
 
+
     @PostMapping("/complete/{id}")
     public String completeTask(@PathVariable("id") int id, HttpServletRequest request) {
         if (checkLegalAccess(id, request)) {
-            return "access-denied";
+            throw new NotFoundException("task not find");
         }
         EmployeeTask task = service.getTaskById(id);
         task.setComplete(true);

@@ -1,13 +1,21 @@
 <!DOCTYPE html>
-
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/resources/css/error-styles/access-denied-style.css}" rel="stylesheet">
+
+    <title>Access-denied</title>
 </head>
 <body>
-<h2>Access Denied - You aren't authorized to access this resource</h2>
-<a th:href="/main">To main page</a>
-
+    <section>
+        <p>Access Denied</p>
+        <div>For access to this page please log in</div>
+        <br>
+        <form action="/login" method="get">
+            <button>Log in</button>
+        </form>
+    </section>
+    
 </body>
 </html>

@@ -1,0 +1,39 @@
+body{
+    background-color:rgb(148, 230, 202);
+}
+button{
+    border-color: blue;
+    background-color: burlywood;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 15px 30px;
+    border-radius: 8px;
+
+}
+section{
+    background-color: aquamarine;
+    border-width: 5px;
+    border-color: aquamarine;
+    border-style: solid;
+    height: auto;
+    width: 1000px;
+    margin:auto;
+    border-radius: 8px;
+    text-align: center;
+}
+button:active{
+    background-color: red;
+    color: aquamarine;
+}
+button:hover{
+    font-size: 16px;
+}
+p{
+    color: red;
+    font-size: 30px;
+    letter-spacing: 5px;
+}
+div{
+    color: blueviolet;
+    font-size: 20px;
+}
