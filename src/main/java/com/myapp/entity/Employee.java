@@ -3,6 +3,7 @@ package com.myapp.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "employee")
@@ -116,6 +117,26 @@ public class Employee {
             tasks = new ArrayList<>();
         }
         tasks.add(task);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return id == employee.id &&
+                Objects.equals(userName, employee.userName) &&
+                Objects.equals(firstName, employee.firstName) &&
+                Objects.equals(lastName, employee.lastName) &&
+                Objects.equals(account, employee.account) &&
+                Objects.equals(data, employee.data) &&
+                Objects.equals(role, employee.role) &&
+                Objects.equals(tasks, employee.tasks);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userName, firstName, lastName, account, data, role, tasks);
     }
 
     @Override

@@ -10,12 +10,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class RepositoryImpl implements EmployeeRepository {
+public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     private final SessionFactory sessionFactory;
 
     @Autowired
-    public RepositoryImpl(SessionFactory sessionFactory) {
+    public EmployeeRepositoryImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

@@ -41,7 +41,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public Employee getEmployeeByUserName(String name) {
-        return employeeRepository.getEmployeeByUserName(name);
+        Employee employee = employeeRepository.getEmployeeByUserName(name);
+        if (employee == null) {
+            throw new RuntimeException(String.format("Employee with UserName: %s not found", name));
+        }
+        return employee;
     }
 
     @Override
@@ -49,7 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee getEmployeeById(int id) {
         Employee employee = employeeRepository.getEmployeeById(id);
         if (employee == null) {
-            throw new RuntimeException();
+            throw new RuntimeException(String.format("Employee with id: %s not found", id));
         }
         return employee;
     }
@@ -58,8 +62,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     public void deleteEmployeeById(int id) {
         Employee employee = employeeRepository.getEmployeeById(id);
-        if (employee != null) {
-            throw new RuntimeException();
+        if (employee == null) {
+            throw new RuntimeException(String.format("Employee with id: %s not found", id));
         }
         employeeRepository.deleteEmployeeById(id);
     }
@@ -67,19 +71,26 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public void saveEmployee(Employee employee) {
-        String password = employee.getAccount().getPassword();
-        String email = employee.getAccount().getEmail();
-        int id = employee.getAccount().getId();
-        EmployeeAccount account = new EmployeeAccount(email, encoder.encode(password));
-        account.setId(id);
-        employee.setAccount(account);
-        employeeRepository.saveEmployee(employee);
+        if (employee != null) {
+            if (employee.getAccount() == null) {
+                throw new RuntimeException("Employee account not find");
+            }
+            String password = employee.getAccount().getPassword();
+            String email = employee.getAccount().getEmail();
+            int id = employee.getAccount().getId();
+            EmployeeAccount account = new EmployeeAccount(email, encoder.encode(password));
+            account.setId(id);
+            employee.setAccount(account);
+            employeeRepository.saveEmployee(employee);
+        }
     }
 
     @Override
     @Transactional
     public void updateEmployee(Employee employee) {
-        employeeRepository.updateEmployee(employee);
+        if (employee != null) {
+            employeeRepository.updateEmployee(employee);
+        }
     }
 
     // taskRepository methods
@@ -114,7 +125,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public void deleteTaskById(int id){
+    public void deleteTaskById(int id) {
         taskRepository.deleteTaskById(id);
     }
 

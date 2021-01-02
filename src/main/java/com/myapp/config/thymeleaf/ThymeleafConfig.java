@@ -13,12 +13,12 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @PropertySource({"classpath:config-data.properties"})
-public class thymeleafConfig implements WebMvcConfigurer {
+public class ThymeleafConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
 
     @Autowired
-    public thymeleafConfig(ApplicationContext applicationContext) {
+    public ThymeleafConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 

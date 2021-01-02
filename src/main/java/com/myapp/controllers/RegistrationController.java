@@ -42,7 +42,6 @@ public class RegistrationController {
             @Valid @ModelAttribute("emp") TempEmployee employee,
             BindingResult theBindingResult,
             Model theModel) {
-        System.out.println(employee);
         String userName = employee.getUserName();
         if (theBindingResult.hasErrors()) {
             return "registration-pages/reg-page";
