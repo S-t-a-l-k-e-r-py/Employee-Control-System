@@ -5,6 +5,8 @@ import com.myapp.entity.EmployeeAccount;
 import com.myapp.entity.EmployeeTask;
 import com.myapp.repositoty.EmployeeRepo.EmployeeRepository;
 import com.myapp.repositoty.TaskRepo.TaskRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -21,6 +23,7 @@ import java.util.List;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
+    Logger logger = LogManager.getLogger(this);
     private final EmployeeRepository employeeRepository;
     private final TaskRepository taskRepository;
     private final BCryptPasswordEncoder encoder;
@@ -35,6 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public List<Employee> getAllEmployees() {
+        logger.debug("called getAllEmployees method in service, employees loaded successfully");
         return employeeRepository.getAllEmployees();
     }
 
@@ -45,6 +49,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employee == null) {
             throw new RuntimeException(String.format("Employee with UserName: %s not found", name));
         }
+        logger.debug(String.format("called getEmployeeByUserName, Employee with userName %s loaded successfully", name));
         return employee;
     }
 
@@ -55,6 +60,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employee == null) {
             throw new RuntimeException(String.format("Employee with id: %s not found", id));
         }
+        logger.debug(String.format("called getEmployeeById, Employee with id %s loaded successfully", id));
         return employee;
     }
 
@@ -65,6 +71,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employee == null) {
             throw new RuntimeException(String.format("Employee with id: %s not found", id));
         }
+        logger.debug(String.format("called deleteEmployeeById, Employee with id %s deleted", id));
         employeeRepository.deleteEmployeeById(id);
     }
 
@@ -81,6 +88,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             EmployeeAccount account = new EmployeeAccount(email, encoder.encode(password));
             account.setId(id);
             employee.setAccount(account);
+            logger.debug("called saveEmployee, Employee saved successfully");
             employeeRepository.saveEmployee(employee);
         }
     }
@@ -90,6 +98,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void updateEmployee(Employee employee) {
         if (employee != null) {
             employeeRepository.updateEmployee(employee);
+            logger.debug("called updateEmployee, Employee updated successfully");
         }
     }
 
@@ -98,6 +107,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public List<EmployeeTask> getTasksByEmployeeId(int id) {
+        logger.debug("called getTasksByEmployeeId, all tasks loaded successfully");
         return taskRepository.getTasksByEmployeeId(id);
     }
 
@@ -106,26 +116,43 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeTask getTaskById(int id) {
         EmployeeTask task = taskRepository.getTaskById(id);
         if (task == null) {
-            throw new RuntimeException("Task not found");
+            throw new RuntimeException(String.format("Task with id: %s not found", id));
         }
+        logger.debug(String.format("called getTaskById, Task with id %s loaded successfully", id));
         return task;
     }
 
     @Override
     @Transactional
     public void addTask(EmployeeTask task, int employeeId) {
+        Employee employee = employeeRepository.getEmployeeById(employeeId);
+        if (employee == null) {
+            throw new RuntimeException(String.format("Task with id: %s not found", employeeId));
+        }
+        if (task == null) {
+            throw new RuntimeException("Task is empty");
+        }
+        logger.debug("called addTask, Task added successfully");
         taskRepository.addTask(task, employeeId);
     }
 
     @Override
     @Transactional
     public void updateTask(EmployeeTask task) {
-        taskRepository.updateTask(task);
+        if (task != null) {
+            taskRepository.updateTask(task);
+            logger.debug("called updateTask, Task updated successfully");
+        }
     }
 
     @Override
     @Transactional
     public void deleteTaskById(int id) {
+        EmployeeTask task = taskRepository.getTaskById(id);
+        if (task == null) {
+            throw new RuntimeException(String.format("Task with id: %s not found", id));
+        }
+        logger.debug(String.format("called deleteTaskById, Task with id %s deleted", id));
         taskRepository.deleteTaskById(id);
     }
 
@@ -139,6 +166,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         List<SimpleGrantedAuthority> list = new ArrayList<>();
         list.add(new SimpleGrantedAuthority(employee.getRole()));
+        logger.debug(String.format("called loadUserByUsername, User with userName %s loaded successfully", username));
         return new User(employee.getUserName(), employee.getAccount().getPassword(), list);
     }
 

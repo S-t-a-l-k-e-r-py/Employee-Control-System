@@ -1,7 +1,10 @@
 package com.myapp.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
@@ -13,7 +16,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
-import java.util.logging.Logger;
+
 
 
 @Configuration
@@ -23,7 +26,7 @@ import java.util.logging.Logger;
 @EnableTransactionManagement
 public class AppConfig {
     private final Environment environment;
-    private final Logger logger = Logger.getLogger(getClass().getName());
+    Logger logger = LogManager.getLogger(this);
 
     @Autowired
     public AppConfig(Environment environment) {
@@ -43,8 +46,8 @@ public class AppConfig {
             throw new RuntimeException(exc);
         }
 
-        logger.info("jdbc.url=" + environment.getProperty("jdbc.url"));
-        logger.info("jdbc.user=" + environment.getProperty("jdbc.user"));
+        logger.debug("jdbc.url=" + environment.getProperty("jdbc.url"));
+        logger.debug("jdbc.user=" + environment.getProperty("jdbc.user"));
 
         // set database connection properties
         myDataSource.setJdbcUrl(environment.getProperty("jdbc.url"));

@@ -11,6 +11,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.times;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -53,5 +56,21 @@ public class EmployeeRepositoryTest {
         Mockito.verify(repository, times(1)).updateEmployee(employee);
     }
 
+    @Test
+    public void getEmployeeByIdTest() {
+        Employee emp = new Employee("Max", "Ivanov", "someRandomUser1234");
+        Mockito.when(repository.getEmployeeById(1)).thenReturn(emp);
+
+        Assert.assertEquals(repository.getEmployeeById(1), emp);
+    }
+
+    @Test
+    public void getAllEmployeesTest() {
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee("Max", "Ivanov", "someRandomUser1234"));
+        employees.add(new Employee("FirstName", "LastName", "user1234"));
+        Mockito.when(repository.getAllEmployees()).thenReturn(employees);
+        Assert.assertEquals(repository.getAllEmployees(), employees);
+    }
 
 }

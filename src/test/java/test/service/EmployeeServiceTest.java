@@ -3,6 +3,7 @@ package test.service;
 import com.myapp.config.AppConfig;
 import com.myapp.entity.Employee;
 import com.myapp.entity.EmployeeAccount;
+import com.myapp.entity.EmployeeTask;
 import com.myapp.repositoty.EmployeeRepo.EmployeeRepositoryImpl;
 import com.myapp.repositoty.TaskRepo.TaskRepositoryImpl;
 import com.myapp.service.EmployeeServiceImpl;
@@ -13,8 +14,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.util.Date;
 
 import static org.mockito.BDDMockito.*;
 
@@ -30,6 +34,8 @@ public class EmployeeServiceTest {
 
     @InjectMocks
     private EmployeeServiceImpl service;
+
+    //EmployeeRepository TEST
 
     //Service getAllEmployees method test
     @Test
@@ -102,7 +108,6 @@ public class EmployeeServiceTest {
         service.saveEmployee(employee);
     }
 
-
     //Service updateEmployee method tests
     @Test
     public void updateEmployeeTest1() {
@@ -116,4 +121,94 @@ public class EmployeeServiceTest {
         service.updateEmployee(null);
         Mockito.verify(employeeRepository, times(0)).updateEmployee(null);
     }
+
+    //TaskRepository TEST
+
+    //Service getTasksByEmployeeId method test
+    @Test
+    public void getTasksByEmployeeIdTest() {
+        taskRepository.getTasksByEmployeeId(1);
+        Mockito.verify(taskRepository, times(1)).getTasksByEmployeeId(1);
+    }
+
+    //Service getTasksByEmployeeId method tests
+    @Test
+    public void getTaskByIdTest() {
+        EmployeeTask task = new EmployeeTask("title", "text", new Date());
+        when(taskRepository.getTaskById(1)).thenReturn(task);
+        Assert.assertEquals(service.getTaskById(1), task);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void getTaskByIdTest_Throw_Exception() {
+        when(taskRepository.getTaskById(1)).thenReturn(null);
+        service.getTaskById(1);
+    }
+
+    //Service addTask method tests
+    @Test
+    public void addTaskTest() {
+        EmployeeTask task = new EmployeeTask("title", "text", new Date());
+        Employee employee = new Employee("Max", "Ivanov", "someRandomUser1234");
+        when(employeeRepository.getEmployeeById(1)).thenReturn(employee);
+        service.addTask(task, 1);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void addTaskTest1_Throw_Exception() {
+        EmployeeTask task = new EmployeeTask("title", "text", new Date());
+        when(employeeRepository.getEmployeeById(1)).thenReturn(null);
+        service.addTask(task, 1);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void addTaskTest2_Throw_Exception() {
+        Employee employee = new Employee("Max", "Ivanov", "someRandomUser1234");
+        when(employeeRepository.getEmployeeById(1)).thenReturn(employee);
+        service.addTask(null, 1);
+    }
+
+    //Service updateTask method tests
+    @Test
+    public void updateTaskTest1() {
+        EmployeeTask task = new EmployeeTask("title", "text", new Date());
+        service.updateTask(task);
+        Mockito.verify(taskRepository, times(1)).updateTask(task);
+    }
+
+    @Test
+    public void updateTaskTest2() {
+        service.updateTask(null);
+        Mockito.verify(taskRepository, times(0)).updateTask(null);
+    }
+
+    //Service deleteTaskById method tests
+    @Test
+    public void deleteTaskByIdTest() {
+        EmployeeTask task = new EmployeeTask("title", "text", new Date());
+        when(taskRepository.getTaskById(1)).thenReturn(task);
+        service.getTaskById(1);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void deleteTaskByIdTest_Throw_Exception() {
+        when(taskRepository.getTaskById(1)).thenReturn(null);
+        service.getTaskById(1);
+    }
+
+    //Service loadUserByUsername method tests
+    @Test
+    public void loadUserByUsername() {
+        Employee employee = new Employee("Max", "Ivanov", "someRandomUser1234");
+        when(employeeRepository.getEmployeeByUserName(employee.getUserName())).thenReturn(employee);
+        service.getEmployeeByUserName("someRandomUser1234");
+    }
+
+    @Test(expected = UsernameNotFoundException.class)
+    public void loadUserByUsername_Throw_UsernameNotFoundException() {
+        when(employeeRepository.getEmployeeByUserName("someRandomUser1234")).thenReturn(null);
+        service.loadUserByUsername("someRandomUser1234");
+    }
+
+
 }

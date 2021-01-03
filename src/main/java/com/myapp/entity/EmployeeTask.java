@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "employee_task")
@@ -90,6 +91,25 @@ public class EmployeeTask {
 
     public void setEmpId(int empId) {
         this.empId = empId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EmployeeTask task1 = (EmployeeTask) o;
+        return id == task1.id &&
+                empId == task1.empId &&
+                isComplete == task1.isComplete &&
+                isFailed == task1.isFailed &&
+                Objects.equals(title, task1.title) &&
+                Objects.equals(task, task1.task) &&
+                Objects.equals(timeLimitation, task1.timeLimitation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, task, timeLimitation, empId, isComplete, isFailed);
     }
 
     @Override
