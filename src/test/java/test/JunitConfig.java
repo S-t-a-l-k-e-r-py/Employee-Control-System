@@ -32,12 +32,10 @@ public class JunitConfig {
     @Test
     public void securityTest() throws Exception {
         mockMvc.perform(get("/")).andExpect(status().is3xxRedirection());
-        mockMvc.perform(get("employee/main")).andExpect(status().is4xxClientError());
+        mockMvc.perform(get("employee/main")).andExpect(status().isOk());
         mockMvc.perform(get("admin/main")).andExpect(status().is4xxClientError());
     }
-    public void EmployeeControllerTest(){
 
-    }
 
 
 

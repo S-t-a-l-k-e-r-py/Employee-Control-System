@@ -34,7 +34,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/task/{id}")
-    public String getTask(@PathVariable(name = "id") int id, Model model, HttpServletRequest request){
+    public String getTask(@PathVariable("id") int id, Model model, HttpServletRequest request) {
         if (checkLegalAccess(id, request)) {
             throw new NotFoundException("task not find");
         }
@@ -43,7 +43,6 @@ public class EmployeeController {
         model.addAttribute("task", task);
         return "employee-pages/task-page";
     }
-
 
     @PostMapping("/complete/{id}")
     public String completeTask(@PathVariable("id") int id, HttpServletRequest request) {

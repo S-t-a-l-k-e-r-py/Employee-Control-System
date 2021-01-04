@@ -1,6 +1,5 @@
 package test.service;
 
-import com.myapp.config.AppConfig;
 import com.myapp.entity.Employee;
 import com.myapp.entity.EmployeeAccount;
 import com.myapp.entity.EmployeeTask;
@@ -15,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.Date;
@@ -23,7 +21,6 @@ import java.util.Date;
 import static org.mockito.BDDMockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-@ContextConfiguration(classes = {AppConfig.class})
 @WebAppConfiguration
 public class EmployeeServiceTest {
     @Mock
