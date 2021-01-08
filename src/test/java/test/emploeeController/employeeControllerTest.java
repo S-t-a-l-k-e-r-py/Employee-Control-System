@@ -4,11 +4,9 @@ import com.myapp.config.AppConfig;
 import com.myapp.entity.Employee;
 import com.myapp.entity.EmployeeTask;
 import com.myapp.exceptions.NotFoundException;
-import com.myapp.service.EmployeeServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -22,13 +20,18 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.Date;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+/**
+ * This test not working now
+ * (Because service doesn't mock in controller at runtime)
+ * I will repair it soon
+ */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class})
@@ -37,9 +40,6 @@ public class employeeControllerTest {
 
     @Autowired
     private WebApplicationContext context;
-
-    @Mock
-    private EmployeeServiceImpl service;
 
     MockMvc mockMvc;
 
@@ -67,22 +67,20 @@ public class employeeControllerTest {
     @WithMockUser(username = "user", password = "1234", roles = {"EMPLOYEE"})
     public void getTask_Except_Success() throws Exception {
         Employee employee = new Employee("Max", "Ivanov", "someRandomUser1234");
-        EmployeeTask task = new EmployeeTask("title", "text", new Date());
+        EmployeeTask task = new EmployeeTask("1", "text", new Date());
         task.setEmpId(2);
         employee.setId(2);
-        when(service.getTaskById(2)).thenReturn(task);
         mockMvc.perform(get("/employee/task/{id}", 2).sessionAttr("employee", employee)).andExpect(status().isOk())
                 .andExpect(model().attributeExists("task"));
     }
 
     @Test
     @WithMockUser(username = "user", password = "1234", roles = {"EMPLOYEE"})
-    public void getTask_Except_NotFoundException() throws Exception {
+    public void getTask_Excepted_NotFoundException() throws Exception {
         Employee employee = new Employee("Max", "Ivanov", "someRandomUser1234");
         EmployeeTask task = new EmployeeTask("title", "text", new Date());
         task.setEmpId(2);
         employee.setId(1);
-        when(service.getTaskById(2)).thenReturn(task);
         mockMvc.perform(get("/employee/task/{id}", 2).sessionAttr("employee", employee)).andExpect(status().isOk())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException));
     }
@@ -90,24 +88,22 @@ public class employeeControllerTest {
     //completeTask method tests
     @Test
     @WithMockUser(username = "user", password = "1234", roles = {"EMPLOYEE"})
-    public void completeTask_Except_Redirection() throws Exception {
+    public void completeTask_Excepted_Redirection() throws Exception {
         Employee employee = new Employee("Max", "Ivanov", "someRandomUser1234");
         EmployeeTask task = new EmployeeTask("title", "text", new Date());
         task.setEmpId(2);
         employee.setId(2);
-        when(service.getTaskById(2)).thenReturn(task);
         mockMvc.perform(post("/employee/complete/{id}", 2).with(csrf()).sessionAttr("employee", employee))
                 .andExpect(status().is3xxRedirection());
     }
 
     @Test
     @WithMockUser(username = "user", password = "1234", roles = {"EMPLOYEE"})
-    public void completeTask_Except_NotFoundException() throws Exception {
+    public void completeTask_Excepted_NotFoundException() throws Exception {
         Employee employee = new Employee("Max", "Ivanov", "someRandomUser1234");
         EmployeeTask task = new EmployeeTask("title", "text", new Date());
         task.setEmpId(2);
         employee.setId(1);
-        when(service.getTaskById(2)).thenReturn(task);
         mockMvc.perform(post("/employee/complete/{id}", 2).with(csrf()).sessionAttr("employee", employee))
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException));
 

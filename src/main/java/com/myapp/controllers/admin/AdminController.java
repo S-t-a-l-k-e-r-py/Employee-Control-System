@@ -27,7 +27,7 @@ public class AdminController {
     }
 
     @GetMapping("/main")
-    public String managerMainPage(Model model, HttpServletRequest request) {
+    public String adminMainPage(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Employee tempAdmin = (Employee) session.getAttribute("admin");
         Employee admin = service.getEmployeeById(tempAdmin.getId());
@@ -41,7 +41,7 @@ public class AdminController {
     @GetMapping("/employee-detail/{id}")
     public String getEmployee(@PathVariable(name = "id") int id, Model model, HttpServletRequest request) {
         if (checkLegalAccess(id, request)) {
-            throw new NotFoundException("employee not find");
+            throw new NotFoundException("employee not found");
         }
         Employee employee = service.getEmployeeById(id);
         HttpSession session = request.getSession();
@@ -56,7 +56,7 @@ public class AdminController {
     @GetMapping("/employee-detail/edit-task/{id}")
     public String editTask(@PathVariable(name = "id") int id, Model model, HttpServletRequest request) {
         if (checkLegalAccess(id, request)) {
-            throw new NotFoundException("task not find");
+            throw new NotFoundException("task not found");
         }
         EmployeeTask task;
         if (id == 0) {
@@ -87,7 +87,7 @@ public class AdminController {
     @PostMapping("/employee-detail/delete-task")
     public String deleteTask(@ModelAttribute(name = "task") EmployeeTask task) {
         if (task.getId() == 0) {
-            throw new NotFoundException("task not find");
+            throw new NotFoundException("task not found");
         }
         service.deleteTaskById(task.getId());
         return "redirect:/admin/main";

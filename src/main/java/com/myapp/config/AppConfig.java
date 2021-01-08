@@ -1,32 +1,31 @@
 package com.myapp.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 
-
 @Configuration
 @EnableWebMvc
+@EnableAspectJAutoProxy
 @ComponentScan("com.myapp")
 @PropertySource({"classpath:config-data.properties"})
 @EnableTransactionManagement
+
 public class AppConfig {
     private final Environment environment;
-    Logger logger = LogManager.getLogger(this);
+    private final Logger logger = Logger.getLogger(this.getClass());
 
     @Autowired
     public AppConfig(Environment environment) {

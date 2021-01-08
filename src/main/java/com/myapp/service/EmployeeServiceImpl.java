@@ -5,8 +5,9 @@ import com.myapp.entity.EmployeeAccount;
 import com.myapp.entity.EmployeeTask;
 import com.myapp.repositoty.EmployeeRepo.EmployeeRepository;
 import com.myapp.repositoty.TaskRepo.TaskRepository;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -23,7 +24,7 @@ import java.util.List;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    Logger logger = LogManager.getLogger(this);
+    private final Logger logger = Logger.getLogger(this.getClass());
     private final EmployeeRepository employeeRepository;
     private final TaskRepository taskRepository;
     private final BCryptPasswordEncoder encoder;

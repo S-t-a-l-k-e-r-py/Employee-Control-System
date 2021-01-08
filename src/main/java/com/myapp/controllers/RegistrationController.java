@@ -1,17 +1,15 @@
 package com.myapp.controllers;
 
-import com.myapp.config.AppConfig;
 import com.myapp.entity.Employee;
 import com.myapp.entity.EmployeeAccount;
 import com.myapp.entity.EmployeeData;
 import com.myapp.entity.Role;
 import com.myapp.service.EmployeeService;
 import com.myapp.validation.TempEmployee;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +25,7 @@ import javax.validation.Valid;
 public class RegistrationController {
 
     private final EmployeeService service;
-    Logger logger = LogManager.getLogger(this);
+    private final Logger logger = Logger.getLogger(this.getClass());
 
     @Autowired
     public RegistrationController(EmployeeService service) {
@@ -74,7 +72,7 @@ public class RegistrationController {
         employee.setAccount(account);
         employee.setData(data);
         employee.setRole(Role.ROLE_EMPLOYEE.toString());
-        logger.debug("Registered new Employee with username: "+employee.getUserName());
+        logger.debug("Registered new Employee with username: " + employee.getUserName());
         return employee;
     }
 
