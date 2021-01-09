@@ -12,7 +12,6 @@ public class SpringInitializer extends AbstractAnnotationConfigDispatcherServlet
     protected Class<?>[] getServletConfigClasses() {
         return new Class[]{AppConfig.class};
     }
-
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};

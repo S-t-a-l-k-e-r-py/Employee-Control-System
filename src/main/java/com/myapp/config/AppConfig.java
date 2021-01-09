@@ -20,7 +20,7 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableAspectJAutoProxy
 @ComponentScan("com.myapp")
-@PropertySource({"classpath:config-data.properties"})
+@PropertySource({"classpath:hibernate-data.properties"})
 @EnableTransactionManagement
 
 public class AppConfig {

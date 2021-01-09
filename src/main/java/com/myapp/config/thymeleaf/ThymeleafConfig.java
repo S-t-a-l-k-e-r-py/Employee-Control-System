@@ -12,7 +12,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 
 @Configuration
-@PropertySource({"classpath:config-data.properties"})
+@PropertySource({"classpath:hibernate-data.properties"})
 public class ThymeleafConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;

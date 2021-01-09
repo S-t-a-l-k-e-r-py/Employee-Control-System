@@ -47,9 +47,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     public Employee getEmployeeByUserName(String name) {
         Employee employee = employeeRepository.getEmployeeByUserName(name);
-        if (employee == null) {
-            throw new RuntimeException(String.format("Employee with UserName: %s not found", name));
-        }
         logger.debug(String.format("called getEmployeeByUserName, Employee with userName %s loaded successfully", name));
         return employee;
     }

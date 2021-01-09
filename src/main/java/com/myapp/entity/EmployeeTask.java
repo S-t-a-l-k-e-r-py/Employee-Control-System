@@ -1,11 +1,15 @@
 package com.myapp.entity;
 
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "employee_task")
 public class EmployeeTask {
@@ -27,89 +31,10 @@ public class EmployeeTask {
     @Column(name = "isfailed")
     private boolean isFailed;
 
-
-    public EmployeeTask() {
-    }
-
     public EmployeeTask(String taskTitle, String task, Date timeLimitation) {
         this.title = taskTitle;
         this.task = task;
         this.timeLimitation = timeLimitation;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getTask() {
-        return task;
-    }
-
-    public void setTask(String task) {
-        this.task = task;
-    }
-
-    public Date getTimeLimitation() {
-        return timeLimitation;
-    }
-
-    public void setTimeLimitation(Date timeLimitation) {
-        this.timeLimitation = timeLimitation;
-    }
-
-    public boolean isComplete() {
-        return isComplete;
-    }
-
-    public void setComplete(boolean complete) {
-        isComplete = complete;
-    }
-
-    public boolean isFailed() {
-        return isFailed;
-    }
-
-    public void setFailed(boolean failed) {
-        isFailed = failed;
-    }
-
-    public int getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(int empId) {
-        this.empId = empId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        EmployeeTask task1 = (EmployeeTask) o;
-        return id == task1.id &&
-                empId == task1.empId &&
-                isComplete == task1.isComplete &&
-                isFailed == task1.isFailed &&
-                Objects.equals(title, task1.title) &&
-                Objects.equals(task, task1.task) &&
-                Objects.equals(timeLimitation, task1.timeLimitation);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, task, timeLimitation, empId, isComplete, isFailed);
     }
 
     @Override

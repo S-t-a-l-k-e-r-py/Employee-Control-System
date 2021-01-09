@@ -2,7 +2,6 @@ package com.myapp.service;
 
 import com.myapp.entity.Employee;
 import com.myapp.entity.EmployeeTask;
-import org.hibernate.Session;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
