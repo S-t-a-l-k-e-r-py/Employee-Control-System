@@ -36,8 +36,7 @@ tbody tr{
 
 
 button{
-    border:1px;
-    border-color: blue;
+    border: 1px blue;
     background-color: burlywood;
     font-weight: bold;
     font-size: 15px;

@@ -163,7 +163,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         List<SimpleGrantedAuthority> list = new ArrayList<>();
-        list.add(new SimpleGrantedAuthority(employee.getRole()));
+        list.add(new SimpleGrantedAuthority("ROLE_"+employee.getRole()));
         logger.debug(String.format("called loadUserByUsername, User with userName %s loaded successfully", username));
         return new User(employee.getUserName(), employee.getAccount().getPassword(), list);
     }

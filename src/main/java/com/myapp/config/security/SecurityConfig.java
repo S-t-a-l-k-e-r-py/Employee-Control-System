@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.concurrent.TimeUnit;
+
 
 @Configuration
 @EnableWebSecurity
@@ -32,20 +34,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
-                .antMatchers("/employee/**").hasRole("EMPLOYEE")
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/director/**").hasRole("DIRECTOR")
+        http
+                .authorizeRequests()
+                    .antMatchers("/employee/**").hasRole("EMPLOYEE")
+                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .antMatchers("/director/**").hasRole("DIRECTOR")
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/authenticateUser")
-                .successHandler(authenticationHandler)
-                .permitAll()
+                    .formLogin()
+                    .loginPage("/login")
+                    .loginProcessingUrl("/authenticateUser")
+                    .successHandler(authenticationHandler)
+                    .permitAll()
                 .and()
-                .logout().permitAll()
+                    .rememberMe().tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(10))
+                    .key("someAuthenticationKey")
+                    .userDetailsService(service)
                 .and()
-                .exceptionHandling().accessDeniedPage("/access-denied");
+                    .logout()
+                        .clearAuthentication(true)
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                .and()
+                    .exceptionHandling().accessDeniedPage("/access-denied");
     }
 
     @Bean
@@ -60,6 +70,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.setPasswordEncoder(passwordEncoder());
         return auth;
     }
-
 
 }

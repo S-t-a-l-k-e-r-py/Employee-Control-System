@@ -28,15 +28,15 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler {
         Employee user = service.getEmployeeByUserName(userName);
         HttpSession session = request.getSession();
         switch (user.getRole()) {
-            case "ROLE_EMPLOYEE":
+            case "EMPLOYEE":
                 session.setAttribute("employee", user);
                 response.sendRedirect(request.getContextPath() + "/employee/main");
                 break;
-            case "ROLE_ADMIN":
+            case "ADMIN":
                 session.setAttribute("admin", user);
                 response.sendRedirect(request.getContextPath() + "/admin/main");
                 break;
-            case "ROLE_DIRECTOR":
+            case "DIRECTOR":
                 session.setAttribute("director", user);
                 response.sendRedirect(request.getContextPath() + "/director/main");
                 break;

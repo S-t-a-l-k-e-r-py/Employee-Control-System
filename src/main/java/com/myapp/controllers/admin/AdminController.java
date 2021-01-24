@@ -32,7 +32,6 @@ public class AdminController {
         Employee tempAdmin = (Employee) session.getAttribute("admin");
         Employee admin = service.getEmployeeById(tempAdmin.getId());
         List<Employee> employees = service.getAllEmployees();
-        employees.forEach(employee -> employee.setRole(employee.getRole().substring(5)));
         model.addAttribute("admin", admin);
         model.addAttribute("employees", employees);
         return "admin-pages/admin-page";

@@ -15,18 +15,27 @@
 <section class="register">
     <form th:action="@{/authenticateUser}" method="post">
         <div th:if="${param.error}" class="alert alert-error">
-            Invalid username and password.
+            <h5>Invalid username and password. </h5>
         </div>
         <p>Sign In</p>
         <div>
-            <input type="text" name="username" placeholder="username"/>
+            <label>
+                <input type="text" name="username" placeholder="username"/>
+            </label>
         </div>
         <br>
 
         <div>
-            <input type="text" name="password" placeholder="password"/>
+            <label>
+                <input type="text" name="password" placeholder="password"/>
+            </label>
         </div>
-        <br>
+        <div>
+            <h4>Remember Me:</h4>
+            <td><label>
+                <input type="checkbox" name="remember-me"/>
+            </label></td>
+        </div>
 
         <div class="logBtn">
             <button type="submit">Log In</button>
