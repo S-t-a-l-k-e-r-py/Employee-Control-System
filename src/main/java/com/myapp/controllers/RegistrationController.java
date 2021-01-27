@@ -71,7 +71,7 @@ public class RegistrationController {
 
         employee.setAccount(account);
         employee.setData(data);
-        employee.setRole(Role.ROLE_EMPLOYEE.toString());
+        employee.setRole(Role.EMPLOYEE.toString());
         logger.debug("Registered new Employee with username: " + employee.getUserName());
         return employee;
     }

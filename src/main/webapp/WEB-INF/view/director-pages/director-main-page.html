@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin work page</title>
-    <link th:href="@{/resources/css/admin-styles/admin-page-style.css}" rel="stylesheet">
+    <title>Director page</title>
+    <link th:href="@{/resources/css/director-styles/director-main-page-style.css}" rel="stylesheet">
 </head>
 
 <body>
 <section>
-    <p id="ttl">Role in office: Admin</p>
-    <p>First Name: <a th:text="${admin.firstName}" style="color: brown;"></a></p>
-    <p>Last Name: <a th:text="${admin.lastName}" style="color: brown;"></a></p>
+    <p id="ttl">Director main page</p>
+    <p>First Name: <a th:text="${director.firstName}" style="color: brown;"></a></p>
+    <p>Last Name: <a th:text="${director.lastName}" style="color: brown;"></a></p>
     <h1 style="color: darkblue">Employees:</h1>
     <table>
         <thead>
@@ -33,7 +33,7 @@
             <td th:text="${employee.getData().getSalary()}"></td>
             <td th:text="${employee.getData().getAge()}"></td>
             <td>
-                <form th:action="@{'/admin/employee-detail/' + ${employee.id}}" method="get">
+                <form  th:action="@{'/director/employee-detail/' + ${employee.id}}" method="get">
                     <button class="btn">See more</button>
                 </form>
             </td>

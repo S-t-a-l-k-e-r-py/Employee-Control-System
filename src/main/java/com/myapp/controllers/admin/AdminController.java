@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -31,7 +32,8 @@ public class AdminController {
         HttpSession session = request.getSession();
         Employee tempAdmin = (Employee) session.getAttribute("admin");
         Employee admin = service.getEmployeeById(tempAdmin.getId());
-        List<Employee> employees = service.getAllEmployees();
+        List<Employee> employees = service.getAllEmployees().stream().filter(e -> e.getRole().equals("EMPLOYEE"))
+                .collect(Collectors.toList());
         model.addAttribute("admin", admin);
         model.addAttribute("employees", employees);
         return "admin-pages/admin-page";
@@ -69,8 +71,9 @@ public class AdminController {
 
     @PostMapping("/employee-detail/save-task")
     public String saveTask(@ModelAttribute(name = "task") EmployeeTask task, HttpServletRequest request) {
+        System.out.println(task);
         HttpSession session = request.getSession();
-        if(task.getTimeLimitation().getTime()<new Date().getTime()){
+        if (task.getTimeLimitation().getTime() < new Date().getTime()) {
             return "redirect:/admin/main";
         }
         Employee employee = (Employee) session.getAttribute("employee");

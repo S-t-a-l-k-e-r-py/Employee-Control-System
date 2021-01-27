@@ -31,6 +31,10 @@ public class EmployeeTask {
     @Column(name = "isfailed")
     private boolean isFailed;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
     public EmployeeTask(String taskTitle, String task, Date timeLimitation) {
         this.title = taskTitle;
         this.task = task;

@@ -18,7 +18,7 @@
 
     <section class="actions">
         <br>
-        <form th:action="@{/employee/main}" method="get" class="back">
+        <form th:action="@{/employee/main}" method="get">
             <button>Go back</button>
         </form>
         <form th:action="@{'/employee/complete/' + ${task.id}}" method="post" class="complete">

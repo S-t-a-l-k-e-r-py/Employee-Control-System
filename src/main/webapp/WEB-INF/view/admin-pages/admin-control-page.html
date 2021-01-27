@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task page</title>
+    <title>Admin control page</title>
     <link th:href="@{/resources/css/admin-styles/admin-control-page-style.css}" rel="stylesheet">
 </head>
 
@@ -49,15 +49,12 @@
     </table>
     <br>
     <section class="actions">
-        <section class="actions">
             <form th:action="@{/admin/main}" method="get" class="back">
-                <button id="btn1">Go back</button>
+                <button  id="btn1">Go back</button>
             </form>
             <form th:action="@{/admin/employee-detail/edit-task/0}" method="get" class="add">
                 <button id="btn2">Add new Task</button>
             </form>
-        </section>
-
     </section>
 
 </section>

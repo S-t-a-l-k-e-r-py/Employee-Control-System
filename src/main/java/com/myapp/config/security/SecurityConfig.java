@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.concurrent.TimeUnit;
 
@@ -46,14 +47,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .successHandler(authenticationHandler)
                     .permitAll()
                 .and()
-                    .rememberMe().tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(10))
-                    .key("someAuthenticationKey")
-                    .userDetailsService(service)
+                    .rememberMe()
+                        .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(10))
+                        .key("someAuthenticationKey")
+                        .rememberMeParameter("remember-me")
+                        .userDetailsService(service)
                 .and()
                     .logout()
+                        .logoutUrl("logout")
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout","POST"))
                         .clearAuthentication(true)
                         .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
+                        .deleteCookies("JSESSIONID", "remember-me")
+                        .logoutSuccessUrl("/login")
                 .and()
                     .exceptionHandling().accessDeniedPage("/access-denied");
     }

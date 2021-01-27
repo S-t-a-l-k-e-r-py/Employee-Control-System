@@ -38,8 +38,7 @@ public class Employee {
     @Column(name = "role")
     private String role;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "employee_id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL)
     private List<EmployeeTask> tasks;
 
     public Employee(String firstName, String lastName, String userName) {
@@ -54,6 +53,7 @@ public class Employee {
             tasks = new ArrayList<>();
         }
         tasks.add(task);
+        task.setEmployee(this);
     }
 
     @Override

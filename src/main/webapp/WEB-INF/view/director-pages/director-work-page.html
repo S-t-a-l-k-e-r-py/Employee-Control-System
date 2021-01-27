@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Director work page</title>
+    <link th:href="@{/resources/css/director-styles/director-work-style.css}" rel="stylesheet">
+</head>
+
+<body>
+
+<section>
+    <form th:action="@{/director/employee-detail/change-salary}" th:object="${emp}" method="post" id="change">
+        <h1>Employee info page</h1>
+        <hr>
+        <p>Role in office:</p>
+        <hr>
+        <p>First Name: <a th:text="${emp.firstName}" style="color: brown;"></a></p>
+        <hr>
+        <p>Last Name: <a th:text="${emp.lastName}" style="color: brown;"></a></p>
+        <hr>
+        <label>
+            <p>Salary: <a th:text="${emp.getData().getSalary()}" style="color: brown;"></a></p>
+            <p><input type="text" th:field="*{data.salary}"/></p>
+        </label>
+        <hr>
+        <p>Confirm tasks: <a th:text="${allTasks}" style="color: brown;"></a></p>
+        <hr>
+        <p>Tasks complete: <a th:text="${completedTasks}" style="color: brown;"></a></p>
+        <hr>
+        <p>Tasks failed: <a th:text="${failedTasks}" style="color: brown;"></a></p>
+        <hr>
+        <input type="hidden" th:field="*{id}">
+    </form>
+    <section class="actions">
+        <form th:action="@{/director/main}" method="get">
+            <button>Go back</button>
+        </form>
+        <button class="btn1" th:form="change">Change salary</button>
+        <form th:action="@{'/director/employee-detail/to-fire/'}" th:object="${emp}" method="post">
+            <input type="hidden" th:field="*{id}">
+            <button class="btn1">To Fire Employee</button>
+        </form>
+    </section>
+
+</section>
+
+
+</body>
+
+</html>
