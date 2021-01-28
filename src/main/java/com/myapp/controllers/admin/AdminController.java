@@ -41,9 +41,6 @@ public class AdminController {
 
     @GetMapping("/employee-detail/{id}")
     public String getEmployee(@PathVariable(name = "id") int id, Model model, HttpServletRequest request) {
-        if (checkLegalAccess(id, request)) {
-            throw new NotFoundException("employee not found");
-        }
         Employee employee = service.getEmployeeById(id);
         HttpSession session = request.getSession();
         session.setAttribute("employee", employee);
@@ -55,10 +52,7 @@ public class AdminController {
     }
 
     @GetMapping("/employee-detail/edit-task/{id}")
-    public String editTask(@PathVariable(name = "id") int id, Model model, HttpServletRequest request) {
-        if (checkLegalAccess(id, request)) {
-            throw new NotFoundException("task not found");
-        }
+    public String editTask(@PathVariable(name = "id") int id, Model model) {
         EmployeeTask task;
         if (id == 0) {
             task = new EmployeeTask();
@@ -71,7 +65,6 @@ public class AdminController {
 
     @PostMapping("/employee-detail/save-task")
     public String saveTask(@ModelAttribute(name = "task") EmployeeTask task, HttpServletRequest request) {
-        System.out.println(task);
         HttpSession session = request.getSession();
         if (task.getTimeLimitation().getTime() < new Date().getTime()) {
             return "redirect:/admin/main";
@@ -93,11 +86,5 @@ public class AdminController {
         }
         service.deleteTaskById(task.getId());
         return "redirect:/admin/main";
-    }
-
-    private boolean checkLegalAccess(int id, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        Employee admin = (Employee) session.getAttribute("admin");
-        return admin.getId() == id;
     }
 }
