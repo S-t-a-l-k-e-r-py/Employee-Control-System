@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main page</title>
+    <link th:href="@{/resources/css/main-page-style.css}" rel="stylesheet">
+</head>
+
+<body>
+
+<section>
+    <h1>Main CRM page</h1>
+    <form th:action="@{/login}" method="get">
+        <button>Sign In</button>
+    </form>
+</section>
+
+
+</body>
+
+</html>

@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Registration Confirmation</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reg-success-page</title>
+    <link th:href="@{/resources/css/registration-styles/reg-success-style.css}" rel="stylesheet">
 </head>
+
 <body>
-<h2>User registered successfully!</h2>
-<hr>
-    <a th:href="/login">To registration page</a>
+<section>
+    <h1>Registration been successfully!</h1>
+    <section>
+        <form th:action="@{/login}" method="get">
+            <button>Go back</button>
+        </form>
+    </section>
+
+</section>
 
 </body>
+
 </html>

@@ -1,0 +1,44 @@
+
+section {
+    background-color: aquamarine;
+    border-width: 5px;
+    border-color: aquamarine;
+    border-style: solid;
+    height: 300px;
+    width: 1000px;
+    margin: auto;
+    border-radius: 8px;
+    text-align: center;
+}
+
+h1 {
+    color: blueviolet;
+    text-align: center;
+    font-size: 40px;
+    letter-spacing: 8px;
+}
+
+body {
+    background-color: rgb(148, 230, 202);
+}
+
+button {
+    border: 1px;
+    background-color: burlywood;
+    font-weight: bold;
+    font-size: 25px;
+    padding: 8px 10px;
+    border-radius: 4px;
+    transition: font-size 0.3s;
+
+}
+
+button:active {
+    background-color: red;
+    color: aquamarine;
+}
+
+button:hover {
+    font-size: 27px;
+
+}

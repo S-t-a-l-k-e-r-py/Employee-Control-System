@@ -8,7 +8,7 @@ public class MainPageController {
 
     @GetMapping("/")
     public String getRegistration() {
-        return "redirect:/login";
+        return "main-page";
     }
 
 }
